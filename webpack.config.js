@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWbpackPlugin = require('html-webpack-plugin');
 
-moodule.exports = {
+module.exports = {
     entry: {
         index : './src/index.js'
     },
