@@ -3,7 +3,7 @@ const HtmlWbpackPlugin = require('html-webpack-plugin');
 
 moodule.exports = {
     entry: {
-        index : 'index.html'
+        index : './src/index.js'
     },
 
     plugins: [
