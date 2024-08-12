@@ -1,5 +1,27 @@
+export class ToDoProject {
+    constructor(title, toDoArray = []) {
+        this._title = title;
+        this._toDoArray = toDoArray;
+    }
 
-export class ToDo {
+    get title() {
+        return this._title;
+    }
+
+    set title(value) {
+        this._title = value;
+    }
+
+    get toDoArray() {
+        return this._toDoArray;
+    }
+
+    set toDoArray(value) {
+        this._toDoArray = value;
+    }
+}
+
+export class ToDoTask {
     constructor(title, description, priority, creationDate, dueDate) {
         this._title = title;
         this._description = description;
