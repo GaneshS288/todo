@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: aquamarine;
+    width: 100%;
+}
+
+.todo-title {
+    text-align: center;
+}
+
+main {
+    display: grid;
+    grid-template-columns: minmax(100px, 250px) 1fr;
+}
+
+.todo-project-container {
+    flex: 1;
+}
+
+.todo-task-container {
+    flex: 3 1 auto;
+}
+
+
+

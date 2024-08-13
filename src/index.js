@@ -1,7 +1,10 @@
 import { ToDoProject, ToDoTask } from "./todo";
+import './styles.css'
+
 let poopingProject = new ToDoProject('pooping reminder');
 console.log(poopingProject.title);
 console.table(poopingProject.toDoArray);
+
 let poopTodo = new ToDoTask('poop', 'take a lot of poop', 'mega high' ,'10-6-2000', '11-6-2000');
 
 console.log(`the task title is ---- ${poopTodo.title}`);
