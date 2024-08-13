@@ -5,6 +5,7 @@ module.exports = merge(config, {
     mode: 'development',
     devtool: 'eval-source-map',
     devServer: {
+        watchFiles: ['.src/index.html'],
         static: ['./dist'],
         open : {
             app : {
