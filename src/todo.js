@@ -22,10 +22,11 @@ export class ToDoProject {
 }
 
 export class ToDoTask {
-    constructor(title, description, priority, creationDate, dueDate) {
+    constructor(title, description, priority, status, creationDate, dueDate) {
         this._title = title;
         this._description = description;
         this._priority = priority;
+        this._status = status;
         this._creationDate = creationDate;
         this._dueDate = dueDate
     }
@@ -48,6 +49,14 @@ export class ToDoTask {
 
     set priority(value) {
         this._priority = value;
+    }
+
+    get status() {
+        return this._status;
+    }
+
+    set status(value) {
+        this._status = value;
     }
 
     get creationDate() {
