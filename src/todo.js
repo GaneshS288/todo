@@ -1,4 +1,7 @@
 export class ToDoProject {
+
+    static AllProjects = [];
+
     constructor(title, toDoArray = []) {
         this._title = title;
         this._toDoArray = toDoArray;
@@ -19,6 +22,14 @@ export class ToDoProject {
     set toDoArray(value) {
         this._toDoArray = value;
     }
+
+    static deleteProject(projectTitle, projectDescription) {
+
+        let projectIndex = this.AllProjects.findIndex((item) => item.title === projectTitle);
+
+        this.AllProjects.splice(projectIndex, 1);
+    }
+
 }
 
 export class ToDoTask {
