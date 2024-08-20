@@ -2,9 +2,9 @@ export class ToDoProject {
 
     static AllProjects = [];
 
-    constructor(title, toDoArray = []) {
+    constructor(title, taskArray = []) {
         this._title = title;
-        this._toDoArray = toDoArray;
+        this._taskArray = taskArray;
     }
 
     get title() {
@@ -15,12 +15,12 @@ export class ToDoProject {
         this._title = value;
     }
 
-    get toDoArray() {
-        return this._toDoArray;
+    get taskArray() {
+        return this._taskArray;
     }
 
-    set toDoArray(value) {
-        this._toDoArray = value;
+    set taskArray(value) {
+        this._taskArray = value;
     }
 
     static deleteProject(projectTitle, projectDescription) {
@@ -80,5 +80,12 @@ export class ToDoTask {
 
     set dueDate(value) {
         this._dueDate = value;
+    }
+
+    static deleteTask(projectTitle, taskTitle) {
+        let parentProject = ToDoProject.AllProjects[ToDoProject.AllProjects.findIndex((project) => project.title === projectTitle)];
+        let taskIndex = parentProject.taskArray.findIndex((task) => task.title === taskTitle);
+
+        parentProject.taskArray.splice(taskIndex, 1);
     }
 }
