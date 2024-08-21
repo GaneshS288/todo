@@ -30,6 +30,12 @@ export class ToDoProject {
         this.AllProjects.splice(projectIndex, 1);
     }
 
+    static deleteTask(projectTitle, taskTitle) {
+        let parentProject = this.AllProjects[this.AllProjects.findIndex((project) => project.title === projectTitle)];
+        let taskIndex = parentProject.taskArray.findIndex((task) => task.title === taskTitle);
+
+        parentProject.taskArray.splice(taskIndex, 1);
+    }
 }
 
 export class ToDoTask {
@@ -80,12 +86,5 @@ export class ToDoTask {
 
     set dueDate(value) {
         this._dueDate = value;
-    }
-
-    static deleteTask(projectTitle, taskTitle) {
-        let parentProject = ToDoProject.AllProjects[ToDoProject.AllProjects.findIndex((project) => project.title === projectTitle)];
-        let taskIndex = parentProject.taskArray.findIndex((task) => task.title === taskTitle);
-
-        parentProject.taskArray.splice(taskIndex, 1);
     }
 }
