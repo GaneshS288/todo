@@ -50,6 +50,7 @@ export class DomMethods {
         let taskDeleteButton = document.createElement('button');
         taskDeleteButton.textContent = 'Delete';
         taskDeleteButton.classList.add('task-delete-button');
+        taskDeleteButton.addEventListener('click', () => this.deleteNode(taskContainer))
         taskButtonContainer.append(taskDeleteButton);
 
         this.appendTask(taskContainer, task.priority);
@@ -67,4 +68,8 @@ export class DomMethods {
 
         parentContainer.append(task);
     } 
+
+    static deleteNode(node) {
+        node.remove();
+    }
 }
