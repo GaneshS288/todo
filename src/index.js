@@ -25,6 +25,10 @@ console.table(todoProject.taskArray);
 DomMethods.createTask(todo);
 DomMethods.createTask(anotherTodo);
 
+DomMethods.createProject(todoProject)
+
+
+
 
 
 

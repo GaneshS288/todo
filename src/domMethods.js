@@ -1,27 +1,60 @@
 export class DomMethods {
 
-    static HighPriorityContainer = document.querySelector('.high-priority-tasks');
-    static MediumPriorityContainer = document.querySelector('.medium-priority-tasks');
-    static LowPriorityContainer = document.querySelector('.low-priority-tasks');
+    static #projectsParent = document.querySelector('.todo-project-container')
+
+    static #HighPriorityContainer = document.querySelector('.high-priority-tasks');
+    static #MediumPriorityContainer = document.querySelector('.medium-priority-tasks');
+    static #LowPriorityContainer = document.querySelector('.low-priority-tasks');
+
+    static createProject(project) {
+        let projectWrapper = document.createElement('div');
+        projectWrapper.classList.add('project');
+
+        let projectTitle = document.createElement('h3');
+        projectTitle.classList.add('project-title');
+        projectTitle.textContent = project.title;
+        projectWrapper.append(projectTitle);
+
+        let projectButtonWrapper = document.createElement('div');
+        projectButtonWrapper.classList.add('project-button-container');
+        projectWrapper.append(projectButtonWrapper)
+        
+        let projectEditButton = document.createElement('button');
+        projectEditButton.textContent = 'Edit';
+        projectEditButton.classList.add('project-edit-button');
+        projectButtonWrapper.append(projectEditButton);
+        
+        let projectDeleteButton = document.createElement('button');
+        projectDeleteButton.textContent = 'Delete';
+        projectDeleteButton.classList.add('project-delete-button');
+        projectDeleteButton.addEventListener('click', () => this.#deleteNode(projectWrapper));
+        projectButtonWrapper.append(projectDeleteButton);
+
+        this.#appendProject(projectWrapper);
+    }
+
+    static #appendProject(project) {
+        this.#projectsParent.append(project);
+    }
 
     static createTask(task) {
 
-        let taskContainer = document.createElement('div');
-        taskContainer.classList.add('task');
+        let taskWrapper = document.createElement('div');
+        taskWrapper.classList.add('task');
 
-        let taskTitle = document.createElement('h3');
+        let taskTitle = document.createElement('h4');
         taskTitle.classList.add('task-title');
         taskTitle.textContent = task.title;
-        taskContainer.append(taskTitle);
+        taskWrapper.append(taskTitle);
 
         let taskDescription = document.createElement('p');
         taskDescription.classList.add('task-description');
         taskDescription.textContent = task.description;
-        taskContainer.append(taskDescription);
+        taskWrapper.append(taskDescription);
 
         let dateAndStatusContainer = document.createElement('div');
         dateAndStatusContainer.classList.add('task-dates-and-status');
-        taskContainer.append(dateAndStatusContainer);
+        taskWrapper.append(dateAndStatusContainer);
 
         let taskStatus = document.createElement('p');
         taskStatus.textContent = task.status;
@@ -38,38 +71,38 @@ export class DomMethods {
         taskDueDate.classList.add('task-due-date');
         dateAndStatusContainer.append(taskDueDate);
 
-        let taskButtonContainer = document.createElement('div');
-        taskButtonContainer.classList.add('task-button-container');
-        taskContainer.append(taskButtonContainer);
+        let taskButtonWrapper = document.createElement('div');
+        taskButtonWrapper.classList.add('task-button-container');
+        taskWrapper.append(taskButtonWrapper);
 
         let taskEditButton = document.createElement('button');
         taskEditButton.textContent = 'Edit';
         taskEditButton.classList.add('task-edit-button');
-        taskButtonContainer.append(taskEditButton);
+        taskButtonWrapper.append(taskEditButton);
 
         let taskDeleteButton = document.createElement('button');
         taskDeleteButton.textContent = 'Delete';
         taskDeleteButton.classList.add('task-delete-button');
-        taskDeleteButton.addEventListener('click', () => this.deleteNode(taskContainer))
-        taskButtonContainer.append(taskDeleteButton);
+        taskDeleteButton.addEventListener('click', () => this.#deleteNode(taskWrapper))
+        taskButtonWrapper.append(taskDeleteButton);
 
-        this.appendTask(taskContainer, task.priority);
+        this.#appendTask(taskWrapper, task.priority);
     }
 
-    static appendTask(task, priority) {
+    static #appendTask(task, priority) {
         let parentContainer;
 
         if (priority === 'high')
-            parentContainer = this.HighPriorityContainer;
+            parentContainer = this.#HighPriorityContainer;
         else if (priority == 'medium')
-            parentContainer = this.MediumPriorityContainer;
+            parentContainer = this.#MediumPriorityContainer;
         else
-            parentContainer = this.LowPriorityContainer;
+            parentContainer = this.#LowPriorityContainer;
 
         parentContainer.append(task);
     } 
 
-    static deleteNode(node) {
+    static #deleteNode(node) {
         node.remove();
     }
 }
