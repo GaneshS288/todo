@@ -4,19 +4,19 @@ export class DomMethods {
     static MediumPriorityContainer = document.querySelector('.medium-priority-tasks');
     static LowPriorityContainer = document.querySelector('.low-priority-tasks');
 
-    static createTask(title, description, priority, status, creationDate, dueDate) {
+    static createTask(task) {
 
         let taskContainer = document.createElement('div');
         taskContainer.classList.add('task');
 
         let taskTitle = document.createElement('h3');
         taskTitle.classList.add('task-title');
-        taskTitle.textContent = title;
+        taskTitle.textContent = task.title;
         taskContainer.append(taskTitle);
 
         let taskDescription = document.createElement('p');
         taskDescription.classList.add('task-description');
-        taskDescription.textContent = description;
+        taskDescription.textContent = task.description;
         taskContainer.append(taskDescription);
 
         let dateAndStatusContainer = document.createElement('div');
@@ -24,17 +24,17 @@ export class DomMethods {
         taskContainer.append(dateAndStatusContainer);
 
         let taskStatus = document.createElement('p');
-        taskStatus.textContent = status;
+        taskStatus.textContent = task.status;
         taskStatus.classList.add('task-status');
         dateAndStatusContainer.append(taskStatus);
 
         let taskCreationDate = document.createElement('p');
-        taskCreationDate.textContent = creationDate;
+        taskCreationDate.textContent = task.creationDate;
         taskCreationDate.classList.add('task-creation-date');
         dateAndStatusContainer.append(taskCreationDate);
 
         let taskDueDate = document.createElement('p');
-        taskDueDate.textContent = dueDate;
+        taskDueDate.textContent = task.dueDate;
         taskDueDate.classList.add('task-due-date');
         dateAndStatusContainer.append(taskDueDate);
 
@@ -52,7 +52,7 @@ export class DomMethods {
         taskDeleteButton.classList.add('task-delete-button');
         taskButtonContainer.append(taskDeleteButton);
 
-        this.appendTask(taskContainer, priority);
+        this.appendTask(taskContainer, task.priority);
     }
 
     static appendTask(task, priority) {

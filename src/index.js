@@ -22,8 +22,8 @@ ToDoProject.deleteTask('practice project', 'todo');
 
 console.table(todoProject.taskArray);
 
-DomMethods.createTask(todo.title, todo.description, todo.priority, todo.status, todo.creationDate, todo.dueDate);
-DomMethods.createTask(anotherTodo.title, anotherTodo.description, anotherTodo.priority, anotherTodo.status, anotherTodo.creationDate, anotherTodo.dueDate);
+DomMethods.createTask(todo);
+DomMethods.createTask(anotherTodo);
 
 
 
