@@ -1,10 +1,12 @@
 export class DomMethods {
 
-    static #projectsParent = document.querySelector('.todo-project-container')
+    static #ProjectsParent = document.querySelector('.todo-project-container')
+    static #ProjectDialog = document.querySelector('.project-dialog');
 
-    static #HighPriorityContainer = document.querySelector('.high-priority-tasks');
-    static #MediumPriorityContainer = document.querySelector('.medium-priority-tasks');
-    static #LowPriorityContainer = document.querySelector('.low-priority-tasks');
+    static #HighPriorityTaskContainer = document.querySelector('.high-priority-tasks');
+    static #MediumPriorityTaskContainer = document.querySelector('.medium-priority-tasks');
+    static #LowPriorityTaskContainer = document.querySelector('.low-priority-tasks');
+
 
     static createProject(project) {
         let projectWrapper = document.createElement('div');
@@ -22,6 +24,9 @@ export class DomMethods {
         let projectEditButton = document.createElement('button');
         projectEditButton.textContent = 'Edit';
         projectEditButton.classList.add('project-edit-button');
+        projectEditButton.addEventListener('click', () => {
+            this.#ProjectDialog.showModal();
+        })
         projectButtonWrapper.append(projectEditButton);
         
         let projectDeleteButton = document.createElement('button');
@@ -34,7 +39,7 @@ export class DomMethods {
     }
 
     static #appendProject(project) {
-        this.#projectsParent.append(project);
+        this.#ProjectsParent.append(project);
     }
 
     static createTask(task) {
@@ -93,11 +98,13 @@ export class DomMethods {
         let parentContainer;
 
         if (priority === 'high')
-            parentContainer = this.#HighPriorityContainer;
+            parentContainer = this.#HighPriorityTaskContainer;
+
         else if (priority == 'medium')
-            parentContainer = this.#MediumPriorityContainer;
+            parentContainer = this.#MediumPriorityTaskContainer;
+        
         else
-            parentContainer = this.#LowPriorityContainer;
+            parentContainer = this.#LowPriorityTaskContainer;
 
         parentContainer.append(task);
     } 
