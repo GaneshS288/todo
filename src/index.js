@@ -1,5 +1,6 @@
 import { ToDoProject, ToDoTask } from "./todo";
 import { DomMethods } from "./domMethods";
+import { dataHandler } from "./dataHandler";
 import './styles.css'
 
 let todoProject = new ToDoProject('practice project');
@@ -16,17 +17,15 @@ console.table(todoProject.taskArray[0])
 
 ToDoProject.AllProjects.push(todoProject);
 
-console.table(todoProject.taskArray);
-
-ToDoProject.deleteTask('practice project', 'todo');
-
-console.table(todoProject.taskArray);
 
 DomMethods.createTask(todo);
 DomMethods.createTask(anotherTodo);
 
 DomMethods.createProject(todoProject)
 
+console.log(dataHandler.getProject('practice project'));
+
+console.log(dataHandler.getTask('another todo', 'practice project'));
 
 
 

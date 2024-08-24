@@ -10,7 +10,7 @@ export class DomMethods {
         let projectWrapper = document.createElement('div');
         projectWrapper.classList.add('project');
 
-        let projectTitle = document.createElement('h3');
+        let projectTitle = document.createElement('button');
         projectTitle.classList.add('project-title');
         projectTitle.textContent = project.title;
         projectWrapper.append(projectTitle);
