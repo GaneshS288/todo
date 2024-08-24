@@ -1,7 +1,7 @@
 export class DomMethods {
 
     static #ProjectsParent = document.querySelector('.todo-project-container')
-    static #ProjectDialog = document.querySelector('.project-dialog');
+    static ProjectDialog = document.querySelector('.project-dialog');
 
     static #HighPriorityTaskContainer = document.querySelector('.high-priority-tasks');
     static #MediumPriorityTaskContainer = document.querySelector('.medium-priority-tasks');
@@ -25,7 +25,7 @@ export class DomMethods {
         projectEditButton.textContent = 'Edit';
         projectEditButton.classList.add('project-edit-button');
         projectEditButton.addEventListener('click', () => {
-            this.#ProjectDialog.showModal();
+            this.ProjectDialog.showModal();
         })
         projectButtonWrapper.append(projectEditButton);
         
@@ -102,7 +102,7 @@ export class DomMethods {
 
         else if (priority == 'medium')
             parentContainer = this.#MediumPriorityTaskContainer;
-        
+
         else
             parentContainer = this.#LowPriorityTaskContainer;
 

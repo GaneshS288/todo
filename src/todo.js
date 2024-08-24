@@ -23,7 +23,7 @@ export class ToDoProject {
         this._taskArray = value;
     }
 
-    static deleteProject(projectTitle, projectDescription) {
+    static deleteProject(projectTitle) {
 
         let projectIndex = this.AllProjects.findIndex((item) => item.title === projectTitle);
 
