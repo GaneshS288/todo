@@ -27,12 +27,14 @@
             <form action="">
                 <fieldset>
                     <legend>Edit Project Title</legend>
-                    <label for="project-title">Project Title:</label>
+                    <label for="project-title-input">Project Title:</label>
                     <input type="text" id="project-title" name="project-title">
                     <div>
-                        <button>Submit</button>
-                        <button>Cancle</button>
+                        <button class="project-submit-button">Submit</button>
+                        <button class="project-cancel-button">Cancle</button>
                     </div>
+
+                    <p class="project-form-error-msg"></p>
                 </fieldset>
             </form>
         </dialog>

@@ -1,6 +1,69 @@
-export class ToDoProject {
+export class ToDo {
 
     static AllProjects = [];
+
+    static #getProjectIndex(projectTitle) {
+        let projectIndex = this.AllProjects.findIndex((project) => project.title === projectTitle);
+        return projectIndex;
+    }
+
+    static addProject(projectTitle) {
+        let project = new ToDoProject(projectTitle);
+        this.AllProjects.push(project);
+
+        return project;
+    }
+
+    static deleteProject(projectTitle) {
+        this.AllProjects.splice(this.#getProjectIndex(projectTitle), 1);
+    }
+
+    static getProject(projectTitle) {
+        return this.AllProjects[this.#getProjectIndex(projectTitle)];
+    }
+
+    static editProjectTitle(newTitle, currentTitle) {
+        let project = this.getProject(currentTitle);
+        project.title = newTitle;
+        return project;
+    }
+
+    static #getTaskIndexInProject(project, taskTitle) {
+        let taskIndex = project.taskArray.findIndex((task) => task.title === taskTitle);
+        return taskIndex;
+    }
+
+    static addTaskToProject(projectTitle, array) {
+        let project = this.getProject(projectTitle);
+        let task = new ToDoTask(...array);
+        project._taskArray.push(task);
+        
+        return task;
+    }
+
+    static deleteTaskFromProject(projectTitle, taskTitle) {
+        let project = this.getProject(projectTitle);
+        project.taskArray.splice(this.#getTaskIndexInProject(project, taskTitle), 1);
+    }
+
+    static getTaskFromProject(projectTitle, taskTitle) {
+        let project = this.getProject(projectTitle);
+        return project.taskArray[this.#getTaskIndexInProject(project, taskTitle)];
+    }
+
+    static editTask(projectTitle, oldTaskTitle, newTitle, description, priority, status, dueDate) {
+        let task = this.getTaskFromProject(projectTitle, oldTaskTitle);
+        task.title = newTitle;
+        task.description = description;
+        task.priority = priority;
+        task.status = status;
+        task.dueDate = dueDate;
+
+        return task;
+    }
+}
+
+class ToDoProject {
 
     constructor(title, taskArray = []) {
         this._title = title;
@@ -23,22 +86,9 @@ export class ToDoProject {
         this._taskArray = value;
     }
 
-    static deleteProject(projectTitle) {
-
-        let projectIndex = this.AllProjects.findIndex((item) => item.title === projectTitle);
-
-        this.AllProjects.splice(projectIndex, 1);
-    }
-
-    static deleteTask(projectTitle, taskTitle) {
-        let parentProject = this.AllProjects[this.AllProjects.findIndex((project) => project.title === projectTitle)];
-        let taskIndex = parentProject.taskArray.findIndex((task) => task.title === taskTitle);
-
-        parentProject.taskArray.splice(taskIndex, 1);
-    }
 }
 
-export class ToDoTask {
+class ToDoTask {
     constructor(title, description, priority, status, creationDate, dueDate) {
         this._title = title;
         this._description = description;
@@ -50,6 +100,10 @@ export class ToDoTask {
 
     get title() {
         return this._title;
+    }
+
+    set title(value) {
+        this._title = value;
     }
 
     get description() {

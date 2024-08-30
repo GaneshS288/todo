@@ -1,31 +1,46 @@
-import { ToDoProject, ToDoTask } from "./todo";
+import { ToDo } from "./todo";
 import { DomMethods } from "./domMethods";
 import { dataHandler } from "./dataHandler";
 import './styles.css'
 
-let todoProject = new ToDoProject('practice project');
-console.log(todoProject.title);
-console.table(todoProject.taskArray);
+let todoProject = ToDo.addProject('practice Project');
+let todoProject2 = ToDo.addProject('practice Project2');
 
-let todo = new ToDoTask('todo', 'take a lot of tasks', 'high' ,'pending', '10-6-2000', '11-6-2000');
-let anotherTodo = new ToDoTask('another todo', 'more tasks', 'medium', 'complete', '20-10-2020', '15-2-2023' );
+console.log("add a new project");
+console.table(ToDo.AllProjects);
 
-todoProject.taskArray.push(todo);
-todoProject.taskArray.push(anotherTodo);
+console.log("delete a project");
+ToDo.deleteProject('practice Project');
 
-console.table(todoProject.taskArray[0])
+console.table(ToDo.AllProjects);
 
-ToDoProject.AllProjects.push(todoProject);
+console.log('edit project title');
+console.table(ToDo.editProjectTitle('new practice project', 'practice Project2'));
+
+console.log("get a task from project");
+
+console.log(ToDo.addTaskToProject('new practice project', ['first task', 'this is first task', 'high', 'pending', new Date(), '12-05-2003']));
+
+console.log(ToDo.addTaskToProject('new practice project', ['second task', 'this is second task', 'high', 'pending', new Date(), '12-05-2005']));
+
+console.table(ToDo.getProject('new practice project'));
+
+console.log('edit a task');
+
+console.table(ToDo.editTask('new practice project', 'first task', 'changed task title', 'this is changed description', 'low','complete', '12-3-04'));
+
+console.table(ToDo.getProject('new practice project').taskArray);
+
+console.log('delete a task');
+
+ToDo.deleteTaskFromProject('new practice project', 'second task');
+
+console.table(ToDo.getProject('new practice project').taskArray);
 
 
-DomMethods.createTask(todo);
-DomMethods.createTask(anotherTodo);
 
-DomMethods.createProject(todoProject)
 
-console.log(dataHandler.getProject('practice project'));
 
-console.log(dataHandler.getTask('another todo', 'practice project'));
 
 
 

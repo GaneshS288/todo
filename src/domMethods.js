@@ -1,3 +1,5 @@
+import { ToDoProject } from "./todo";
+
 export class DomMethods {
 
     static #ProjectsParent = document.querySelector('.todo-project-container')
@@ -32,7 +34,7 @@ export class DomMethods {
         let projectDeleteButton = document.createElement('button');
         projectDeleteButton.textContent = 'Delete';
         projectDeleteButton.classList.add('project-delete-button');
-        projectDeleteButton.addEventListener('click', () => this.#deleteNode(projectWrapper));
+        projectDeleteButton.addEventListener('click', () => projectWrapper.remove());
         projectButtonWrapper.append(projectDeleteButton);
 
         this.#appendProject(projectWrapper);
@@ -88,7 +90,7 @@ export class DomMethods {
         let taskDeleteButton = document.createElement('button');
         taskDeleteButton.textContent = 'Delete';
         taskDeleteButton.classList.add('task-delete-button');
-        taskDeleteButton.addEventListener('click', () => this.#deleteNode(taskWrapper))
+        taskDeleteButton.addEventListener('click', () => taskWrapper.remove())
         taskButtonWrapper.append(taskDeleteButton);
 
         this.#appendTask(taskWrapper, task.priority);
@@ -108,8 +110,5 @@ export class DomMethods {
 
         parentContainer.append(task);
     } 
-
-    static #deleteNode(node) {
-        node.remove();
-    }
 }
+
