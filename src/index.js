@@ -37,6 +37,8 @@ ToDo.deleteTaskFromProject('new practice project', 'second task');
 
 console.table(ToDo.getProject('new practice project').taskArray);
 
+DomMethods.createProject(todoProject)
+
 
 
 

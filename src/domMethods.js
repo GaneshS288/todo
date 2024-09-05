@@ -1,4 +1,3 @@
-import { ToDoProject } from "./todo";
 
 export class DomMethods {
 
@@ -28,6 +27,7 @@ export class DomMethods {
         projectEditButton.classList.add('project-edit-button');
         projectEditButton.addEventListener('click', () => {
             this.ProjectDialog.showModal();
+            this.newProjectForm();
         })
         projectButtonWrapper.append(projectEditButton);
         
@@ -109,6 +109,44 @@ export class DomMethods {
             parentContainer = this.#LowPriorityTaskContainer;
 
         parentContainer.append(task);
-    } 
+    }
+    
+    static newProjectForm() {
+        const form = document.createElement('form');
+        const fieldset = document.createElement('fieldset');
+        const legend = document.createElement('legend');
+        legend.textContent = 'Create New Project';
+
+
+        let projectTitleInput = document.createElement('input');
+        projectTitleInput.classList.add('project-title-input');
+        projectTitleInput.id = 'project-title';
+        projectTitleInput.type = 'text';
+
+        let projectTitleLable = document.createElement('label');
+        projectTitleLable.htmlFor = 'project-title';
+        projectTitleLable.textContent = 'Project title:';
+
+        let formSubmitButton = document.createElement('button');
+        formSubmitButton.classList.add('submit');
+        formSubmitButton.textContent = 'Submit';
+
+        let formCancelButton = document.createElement('button');
+        formCancelButton.classList.add('cancel');
+        formCancelButton.textContent = 'Cancel';
+
+        let formButtonContainer = document.createElement('div');
+        formButtonContainer.append(formSubmitButton);
+        formButtonContainer.append(formCancelButton);
+
+        form.append(fieldset);
+        fieldset.append(legend);
+        fieldset.append(projectTitleLable);
+        fieldset.append(projectTitleInput);
+        fieldset.append(formButtonContainer);
+
+        this.ProjectDialog.append(form);
+    }
 }
+
 
