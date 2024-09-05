@@ -25,9 +25,9 @@ export class DomMethods {
         let projectEditButton = document.createElement('button');
         projectEditButton.textContent = 'Edit';
         projectEditButton.classList.add('project-edit-button');
-        projectEditButton.addEventListener('click', () => {
+        projectEditButton.addEventListener('click', (event) => {
             this.ProjectDialog.showModal();
-            this.newProjectForm();
+            this.createAndEditProjectForm(event);
         })
         projectButtonWrapper.append(projectEditButton);
         
@@ -45,7 +45,6 @@ export class DomMethods {
     }
 
     static createTask(task) {
-
         let taskWrapper = document.createElement('div');
         taskWrapper.classList.add('task');
 
@@ -111,12 +110,12 @@ export class DomMethods {
         parentContainer.append(task);
     }
     
-    static newProjectForm() {
+    static createAndEditProjectForm(event) {
         const form = document.createElement('form');
         const fieldset = document.createElement('fieldset');
         const legend = document.createElement('legend');
-        legend.textContent = 'Create New Project';
 
+        event.target.textContent === 'Edit' ? legend.textContent = 'Edit Project' : legend.textContent = 'Create New Project';
 
         let projectTitleInput = document.createElement('input');
         projectTitleInput.classList.add('project-title-input');
@@ -149,4 +148,8 @@ export class DomMethods {
     }
 }
 
-
+const addProjectButton = document.querySelector('.add-project-button');
+addProjectButton.addEventListener('click', (event) => {
+    DomMethods.ProjectDialog.showModal();
+    DomMethods.createAndEditProjectForm(event);
+})
