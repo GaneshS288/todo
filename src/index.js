@@ -1,6 +1,5 @@
 import { ToDo } from "./todo";
 import { DomMethods } from "./domMethods";
-import { dataHandler } from "./dataHandler";
 import './styles.css'
 
 let todoProject = ToDo.addProject('practice Project');
@@ -38,6 +37,9 @@ ToDo.deleteTaskFromProject('new practice project', 'second task');
 console.table(ToDo.getProject('new practice project').taskArray);
 
 DomMethods.createProject(todoProject)
+DomMethods.createTask(todoProject2.taskArray[0]);
+
+console.log(ToDo.getProject('heelo project'));
 
 
 
