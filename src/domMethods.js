@@ -1,8 +1,8 @@
-import { getUserInputForProject, getUserInputForTask } from "./dataParser.js";
+import { isValidTaskinput } from "./dataParser.js";
+import { PubSub } from "./pubsub.js";
 
 export class DomMethods {
 
-    static #ProjectsParent = document.querySelector('.todo-project-container')
     static FormDialog = document.querySelector('.form-dialog');
 
     static #HighPriorityTaskContainer = document.querySelector('.high-priority-tasks');
@@ -38,11 +38,8 @@ export class DomMethods {
         projectDeleteButton.addEventListener('click', () => projectWrapper.remove());
         projectButtonWrapper.append(projectDeleteButton);
 
-        this.#appendProject(projectWrapper);
-    }
-
-    static #appendProject(project) {
-        this.#ProjectsParent.append(project);
+        const ProjectsContainer = document.querySelector('.todo-project-container');
+        ProjectsContainer.prepend(projectWrapper);
     }
 
     static createTask(task) {
@@ -270,7 +267,9 @@ export class DomMethods {
         const submitButton = document.createElement('button');
         submitButton.textContent = 'Submit';
         submitButton.type = 'button';
-        submitButton.addEventListener('click', () => console.log(getUserInputForTask(titleInput, descriptionTextarea, taskPrioritySelect, taskStatusSelect, taskDueDateInput)));
+        submitButton.addEventListener('click', () => {
+            console.log(isValidTaskinput('new practice project', [titleInput, descriptionTextarea, taskPrioritySelect, taskStatusSelect, taskDueDateInput]));
+        });
 
         const cancelButton = document.createElement('button');
         cancelButton.textContent = 'Cancel';
@@ -426,3 +425,5 @@ addTaskButton.addEventListener('click', () => {
     DomMethods.FormDialog.showModal();
     DomMethods.newTaskForm();
 })
+
+PubSub.subscribe('project added', DomMethods.createProject.bind(DomMethods))

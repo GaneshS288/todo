@@ -1,3 +1,5 @@
+import { PubSub } from "./pubsub";
+
 export class ToDo {
 
     static AllProjects = [];
@@ -11,6 +13,7 @@ export class ToDo {
         let project = new ToDoProject(projectTitle);
         this.AllProjects.push(project);
 
+        PubSub.publish('project added', project);
         return project;
     }
 
@@ -89,12 +92,12 @@ class ToDoProject {
 }
 
 class ToDoTask {
-    constructor(title, description, priority, status, creationDate, dueDate) {
+    constructor(title, description, priority, status, dueDate) {
         this._title = title;
         this._description = description;
         this._priority = priority;
         this._status = status;
-        this._creationDate = creationDate;
+        this._creationDate = new Date();
         this._dueDate = dueDate
     }
 
