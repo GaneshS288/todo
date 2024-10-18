@@ -4,6 +4,8 @@ export class ToDo {
 
     static AllProjects = [];
 
+    static SelectedProject;
+
     static #getProjectIndex(projectTitle) {
         let projectIndex = this.AllProjects.findIndex((project) => project.title === projectTitle);
         return projectIndex;
@@ -13,21 +15,34 @@ export class ToDo {
         let project = new ToDoProject(projectTitle);
         this.AllProjects.push(project);
 
-        PubSub.publish('project added', project);
+        this.selectProject(project)
         return project;
     }
 
-    static deleteProject(projectTitle) {
-        this.AllProjects.splice(this.#getProjectIndex(projectTitle), 1);
+    static deleteProject(project) {
+        this.AllProjects.splice(this.#getProjectIndex(project.title), 1);
+        if(this.SelectedProject === project)
+            this.selectProject(this.AllProjects[0]);
+        else
+            this.selectProject(this.SelectedProject)
     }
 
     static getProject(projectTitle) {
         return this.AllProjects[this.#getProjectIndex(projectTitle)];
     }
 
+    static selectProject(project) {
+        this.AllProjects.forEach(project => project.isSelected = false);
+        project.isSelected = true;
+        this.SelectedProject = project;
+
+        PubSub.publish('project selected', {allProjects : this.AllProjects, currentProject : this.SelectedProject});
+    }
+
     static editProjectTitle(newTitle, currentTitle) {
         let project = this.getProject(currentTitle);
         project.title = newTitle;
+        PubSub.publish('project edited', {allProjects : this.AllProjects, currentProject : this.SelectedProject});
         return project;
     }
 
@@ -41,12 +56,13 @@ export class ToDo {
         let task = new ToDoTask(...array);
         project._taskArray.push(task);
         
-        return task;
+        PubSub.publish('task added' , {currentProject : this.SelectedProject});
     }
 
-    static deleteTaskFromProject(projectTitle, taskTitle) {
-        let project = this.getProject(projectTitle);
-        project.taskArray.splice(this.#getTaskIndexInProject(project, taskTitle), 1);
+    static deleteTaskFromProject(task) {
+        let project = this.SelectedProject;
+        project.taskArray.splice(this.#getTaskIndexInProject(project, task.title), 1);
+        this.selectProject(this.SelectedProject);
     }
 
     static getTaskFromProject(projectTitle, taskTitle) {
@@ -62,6 +78,8 @@ export class ToDo {
         task.status = status;
         task.dueDate = dueDate;
 
+        PubSub.publish('task edited', {currentProject : this.SelectedProject});
+
         return task;
     }
 }
@@ -70,6 +88,7 @@ class ToDoProject {
 
     constructor(title, taskArray = []) {
         this._title = title;
+        this._isSelected = false;
         this._taskArray = taskArray;
     }
 
@@ -79,6 +98,14 @@ class ToDoProject {
 
     set title(value) {
         this._title = value;
+    }
+
+    get isSelected() {
+        return this._isSelected;
+    }
+
+    set isSelected(value) {
+        this._isSelected = value;
     }
 
     get taskArray() {

@@ -5,7 +5,7 @@ export class PubSub {
         if (this.Subscribers[event] === undefined)
             this.Subscribers[event] = [subscriber];
         else 
-        this.subscribers[event] = [...this.Subscribers[event], subscriber];
+        this.Subscribers[event] = [...this.Subscribers[event], subscriber];
     }
 
     static unsubscribe(event, subscriber) {
@@ -16,3 +16,4 @@ export class PubSub {
         this.Subscribers[event].forEach(subscriber => subscriber(payload));
     }
 }
+
